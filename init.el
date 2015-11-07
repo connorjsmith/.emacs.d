@@ -80,6 +80,8 @@
 ;; Enable powerline (spaceline)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
+;; Use colour highlighting to represent the current mode
+(setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 ;; Color scheme
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
