@@ -16,6 +16,31 @@
 (setq-default truncate-lines t)
 (setq truncate-partial-width-windows nil)
 
+;; enable helm in all buffers
+(req-package helm-config
+    :require helm evil
+    :ensure evil
+    :config
+        (helm-mode 1)
+        (helm-autoresize-mode t)
+        ;; Use helm for M-x functionality
+        (global-set-key (kbd "M-x") 'helm-M-x)
+        (setq helm-M-x-fuzzy-match t)
+        ;; Use helm to show the kill ring
+        (global-set-key (kbd "M-p") 'helm-show-kill-ring)
+        ;; Use helm to open files with Alt-O
+        (global-set-key (kbd "M-o") 'helm-find-files)
+        ;; Use helm mini instead of the classic "ls" function
+        (setq helm-buffers-fuzzy-matching t)
+        (setq helm-recentf-fuzzy-match t)
+        ;; use ls to open the helm-mini window
+        (defalias 'buffer-menu 'helm-mini)
+        ;; use M-hjkl to navigate helm
+        (define-key helm-map (kbd "M-h") 'helm-previous-page)
+        (define-key helm-map (kbd "M-j") 'helm-next-line)
+        (define-key helm-map (kbd "M-k") 'helm-previous-line)
+        (define-key helm-map (kbd "M-l") 'helm-next-page)
+)
 ;; enable rainbow-delimiters-mode
 ;; (use-package 'rainbow-mode)
 (req-package rainbow-delimiters
@@ -41,6 +66,8 @@
 
 ;; Use evil and start in insert mode / emacs for some modes
 (req-package evil
+    :require ibuffer
+    :ensure ibuffer
     :config
         (evil-mode 1)
         ;; Fix some evil mode state issues
