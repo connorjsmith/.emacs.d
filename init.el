@@ -40,6 +40,11 @@
         (define-key helm-map (kbd "M-j") 'helm-next-line)
         (define-key helm-map (kbd "M-k") 'helm-previous-line)
         (define-key helm-map (kbd "M-l") 'helm-next-page)
+        (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+        (define-key helm-map (kbd "M-/") 'helm-select-action)
+        ;; use M-hl to navigate directories in helm-find-files
+        (define-key helm-find-files-map (kbd "M-h") 'helm-find-files-up-one-level)
+        (define-key helm-find-files-map (kbd "M-l") 'helm-execute-persistent-action)
 )
 ;; enable rainbow-delimiters-mode
 ;; (use-package 'rainbow-mode)
