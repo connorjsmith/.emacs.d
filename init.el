@@ -70,9 +70,8 @@
         (setq indent-line-function 'insert-tab)
 )
 
-;; Use evil and start in insert mode / emacs for some modes
 (req-package evil
-    :require ibuffer
+    :require ibuffer evil-numbers
     :ensure ibuffer
     :config
         (evil-mode 1)
@@ -80,11 +79,6 @@
         (add-to-list 'evil-emacs-state-modes 'package-menu-mode)
         (evil-set-initial-state 'package-menu-mode 'motion)
         (evil-set-initial-state 'ibuffer-mode 'normal)
-
-        ;;Exit insert mode by pressing j and then j quickly
-        (setq key-chord-two-keys-delay 0.1)
-        (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
-        (key-chord-mode 1)
 
         ;; remap ; to : in normal mode
         (define-key evil-normal-state-map (kbd ";") 'evil-ex)
@@ -96,6 +90,17 @@
         ;; fix <C-r> behavior in the minibuffer and Ctrl+r = expression buffer
         (define-key minibuffer-local-map "\C-r" 'evil-paste-from-register)
         (evil-ex-define-cmd "\C-r" 'evil-paste-from-register)
+
+        (global-unset-key (kbd "M-h"))
+        (global-set-key (kbd "M-h") 'previous-buffer)
+        (global-unset-key (kbd "M-l"))
+        (global-set-key (kbd "M-l") 'next-buffer)
+
+        ;;Exit insert mode by pressing j and then j quickly
+        ;; Note that this must come last in this require block
+        (setq key-chord-two-keys-delay 0.1)
+        (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+        (key-chord-mode 1)
 )
 
 ;; use web-mode for js, html, jsx, handlebars etc.
