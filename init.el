@@ -1,3 +1,4 @@
+(server-start)
 (require 'package)
 (push '("marmalade" . "http://marmalade-repo.org/packages/")
     package-archives )
@@ -97,6 +98,14 @@
         (evil-ex-define-cmd "\C-r" 'evil-paste-from-register)
 )
 
+;; use web-mode for js, html, jsx, handlebars etc.
+(req-package web-mode
+    (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+    (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")))
+    (setq web-mode-enable-auto-pairing t)
+    (setq web-mode-enable-css-colorization t)
+)
 ;; Start company autocompletion in all buffers
 (req-package company
     :require company-c-headers company-jedi company-web
